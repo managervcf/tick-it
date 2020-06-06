@@ -5,7 +5,7 @@ import { Password } from '../utils/password';
  * Define an interface that describes the properties
  * that are required to create a new user
  */
-interface UserAttributes {
+export interface UserAttributes {
   email: string;
   password: string;
 }
@@ -30,16 +30,31 @@ interface UserDoc extends Document {
 /**
  * Define user schema
  */
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  /**
+   * Customize a user JSON that gets back from database
+   */
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+      },
+      versionKey: false,
+    },
+  }
+);
 
 userSchema.pre('save', async function (done) {
   if (this.isModified('password')) {

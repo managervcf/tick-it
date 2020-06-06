@@ -3,6 +3,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import { connect } from 'mongoose';
+import cookieSession from 'cookie-session';
 import { currentUserRouter } from './routes/currentUser';
 import { signUpRouter } from './routes/signUp';
 import { signInRouter } from './routes/signIn';
@@ -12,6 +13,17 @@ import { NotFoundError } from './errors/NotFoundError';
 import { DatabaseConnectionError } from './errors/DatabaseConnectionError';
 
 const app = express();
+
+// Trust traffic from nginx
+app.set('trust proxy', true);
+
+// User cookie session
+app.use(
+  cookieSession({
+    signed: false,
+    secure: true,
+  })
+);
 
 // Parse the body of the request
 app.use(json());
@@ -34,7 +46,17 @@ app.use(errorHandler);
  * Function that starts the server.
  */
 const start = async () => {
+  /**
+   * Check evironment variables
+   */
+  if (!process.env.JWT_KEY) {
+    throw new Error('JWT_KEY env variable not defined');
+  }
+
   try {
+    /**
+     * Connect to database
+     */
     await connect('mongodb://auth-mongo-srv:27017/auth', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
