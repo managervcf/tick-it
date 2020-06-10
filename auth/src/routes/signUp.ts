@@ -1,15 +1,15 @@
 import { Router, Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
-import { RequestValidationError } from '../errors/RequestValidationError';
 import { BadRequestError } from '../errors/BadRequestError';
+import { validateRequest } from '../middlewares/validateRequest';
 
 // Define a router
 const signUpRouter = Router();
 
 // Define middleware validating request body
-const validationMiddleware = [
+const bodyValidationMiddleware = [
   body('email').isEmail().withMessage('Email must be valid'),
   body('password')
     .trim()
@@ -20,14 +20,9 @@ const validationMiddleware = [
 // Define route handler
 signUpRouter.post(
   '/api/users/signup',
-  validationMiddleware,
+  bodyValidationMiddleware,
+  validateRequest,
   async (req: Request, res: Response) => {
-    // Pull off errors that might occur and throw if present
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
-    }
-
     // Pull off email and password
     const { email, password } = req.body;
 
@@ -41,7 +36,7 @@ signUpRouter.post(
     const newUser = User.build({ email, password });
     await newUser.save();
 
-    // Generate jsonwebtoken and store is on session object
+    // Generate jsonwebtoken
     const userJwt = jwt.sign(
       {
         id: newUser.id,
@@ -49,6 +44,8 @@ signUpRouter.post(
       },
       process.env.JWT_KEY!
     );
+
+    // Store jwt on the session object
     req.session = { jwt: userJwt };
 
     return res.status(201).send(newUser);
