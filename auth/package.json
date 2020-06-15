@@ -4,7 +4,15 @@
   "description": "Authentication Service for TickIt",
   "main": "index.js",
   "scripts": {
+    "test": "jest --watch-all --no-cache",
     "start": "ts-node-dev src/index.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
   },
   "keywords": [
     "auth",
@@ -25,5 +33,13 @@
     "mongoose": "^5.9.17",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/supertest": "^2.0.9",
+    "jest": "^26.0.1",
+    "mongodb-memory-server": "^6.6.1",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.1.0"
   }
 }
