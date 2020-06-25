@@ -1,0 +1,24 @@
+{
+  "name": "client",
+  "version": "0.0.1",
+  "description": "NextJS server side rendered front-end app for the tick-it project",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next"
+  },
+  "keywords": [
+    "clinet",
+    "front-end",
+    "nextjs",
+    "react"
+  ],
+  "author": "Mateusz Pyzowski",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "next": "^9.4.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
