@@ -1,9 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
-import { validateRequest } from '../middlewares/validateRequest';
+import { validateRequest, BadRequestError } from '@tick-it/common';
 import { User } from '../models/User';
-import { BadRequestError } from '../errors/BadRequestError';
 import { Password } from '../utils/password';
 
 const signInRouter = Router();

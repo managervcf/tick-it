@@ -2,8 +2,7 @@ import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User';
-import { BadRequestError } from '../errors/BadRequestError';
-import { validateRequest } from '../middlewares/validateRequest';
+import { BadRequestError, validateRequest } from '@tick-it/common';
 
 // Define a router
 const signUpRouter = Router();

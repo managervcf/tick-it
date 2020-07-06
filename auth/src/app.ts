@@ -7,8 +7,7 @@ import { currentUserRouter } from './routes/currentUser';
 import { signUpRouter } from './routes/signUp';
 import { signInRouter } from './routes/signIn';
 import { signOutRouter } from './routes/signOut';
-import { errorHandler } from './middlewares/errorHandler';
-import { NotFoundError } from './errors/NotFoundError';
+import { errorHandler, NotFoundError } from '@tick-it/common';
 
 const app = express();
 

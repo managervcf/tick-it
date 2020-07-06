@@ -1,6 +1,6 @@
 import { app } from './app';
 import { connect } from 'mongoose';
-import { DatabaseConnectionError } from './errors/DatabaseConnectionError';
+import { DatabaseConnectionError } from '@tick-it/common';
 
 /**
  * Function that starts the server.

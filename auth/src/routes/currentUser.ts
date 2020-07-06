@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { currentUser } from '../middlewares/currentUser';
+import { currentUser } from '@tick-it/common';
 
 const currentUserRouter = Router();
 
