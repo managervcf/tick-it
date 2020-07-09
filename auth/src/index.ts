@@ -13,11 +13,15 @@ const start = async () => {
     throw new Error('JWT_KEY env variable not defined');
   }
 
+  if (!process.env.MONGO_URI) {
+    throw new Error('MONGO_URO env variable not defined');
+  }
+
   try {
     /**
      * Connect to database
      */
-    await connect('mongodb://auth-mongo-srv:27017/auth', {
+    await connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
