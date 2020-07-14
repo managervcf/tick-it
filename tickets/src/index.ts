@@ -26,12 +26,14 @@ const start = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
     });
-    console.log('(Auth) Connected to MongoDB');
+    console.log('(Tickets) Connected to MongoDB');
   } catch (error) {
     throw new DatabaseConnectionError();
   } finally {
     const port = 3000;
-    app.listen(port, () => console.log(`(Auth) Listening on port ${port}...`));
+    app.listen(port, () =>
+      console.log(`(Tickets) Listening on port ${port}...`)
+    );
   }
 };
 

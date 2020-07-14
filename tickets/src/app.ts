@@ -3,7 +3,11 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@tick-it/common';
+import { errorHandler, NotFoundError, currentUser } from '@tick-it/common';
+import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
+import { getTicketsRouter } from './routes';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 
@@ -21,7 +25,15 @@ app.use(
 // Parse the body of the request
 app.use(json());
 
+// Use middleware from @tick-it/common library
+app.use(currentUser);
+
 // Routes
+app.use(createTicketRouter);
+app.use(showTicketRouter);
+app.use(getTicketsRouter);
+app.use(updateTicketRouter);
+
 // '404 Not Found' error handling
 app.all('*', async () => {
   throw new NotFoundError();
