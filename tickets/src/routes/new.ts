@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@tick-it/common';
 import { Ticket } from '../models/Ticket';
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const createTicketRouter = Router();
 
@@ -19,15 +21,25 @@ createTicketRouter.post(
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
 
+    // Build new record
     const newTicket = Ticket.build({
       title,
       price,
       userId: req.currentUser!.id,
     });
 
-    const savedTicket = await newTicket.save();
+    // Save new record to the database
+    await newTicket.save();
 
-    res.status(201).send(savedTicket);
+    // Emit an event with the new record
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: newTicket.id,
+      title: newTicket.title,
+      price: newTicket.price,
+      userId: newTicket.userId,
+    });
+
+    res.status(201).send(newTicket);
   }
 );
 

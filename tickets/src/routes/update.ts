@@ -7,6 +7,8 @@ import {
   requireAuth,
 } from '@tick-it/common';
 import { Ticket } from '../models/Ticket';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const validateBody = [
   body('title').notEmpty().withMessage('Title is required'),
@@ -34,12 +36,22 @@ updateTicketRouter.put(
       throw new NotAuthorizedError();
     }
 
+    // Update record
     ticket.set({
       title: req.body.title,
       price: req.body.price,
     });
 
+    // Save updated record to the database
     await ticket.save();
+
+    // Emit an event with and updated ticket
+    new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.send(ticket);
   }
