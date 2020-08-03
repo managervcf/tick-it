@@ -39,7 +39,7 @@ const start = async () => {
       useCreateIndex: true,
     });
 
-    console.log('(Tickets) Connected to MongoDB');
+    console.log('(Orders) Connected to MongoDB');
 
     /**
      * Connect to NATS Streaming Server
@@ -64,7 +64,7 @@ const start = async () => {
   } finally {
     const port = 3000;
     app.listen(port, () =>
-      console.log(`(Tickets) Listening on port ${port}...`)
+      console.log(`(Orders) Listening on port ${port}...`)
     );
   }
 };

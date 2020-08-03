@@ -7,7 +7,7 @@ import { errorHandler, NotFoundError, currentUser } from '@tick-it/common';
 import { createOrderRouter } from './routes/new';
 import { showOrderRouter } from './routes/show';
 import { indexOrderRouter } from './routes';
-import { deleteOrderRouter } from './routes/delete';
+import { cancelOrderRouter } from './routes/cancel';
 
 const app = express();
 
@@ -32,7 +32,7 @@ app.use(currentUser);
 app.use(createOrderRouter);
 app.use(showOrderRouter);
 app.use(indexOrderRouter);
-app.use(deleteOrderRouter);
+app.use(cancelOrderRouter);
 
 // '404 Not Found' error handling
 app.all('*', async () => {
