@@ -3,10 +3,10 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { currentUserRouter } from './routes/currentUser';
-import { signUpRouter } from './routes/signUp';
-import { signInRouter } from './routes/signIn';
-import { signOutRouter } from './routes/signOut';
+import { currentUserRouter } from './routes/current-user';
+import { signUpRouter } from './routes/sign-up';
+import { signInRouter } from './routes/sign-in';
+import { signOutRouter } from './routes/sign-out';
 import { errorHandler, NotFoundError } from '@tick-it/common';
 
 const app = express();
