@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { Ticket } from '../models/Ticket';
+import { Ticket } from '../models/ticket';
 import { NotFoundError } from '@tick-it/common';
 
 const showTicketRouter = Router();

@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
 import { requireAuth, validateRequest } from '@tick-it/common';
-import { Ticket } from '../models/Ticket';
+import { Ticket } from '../models/ticket';
 import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
 

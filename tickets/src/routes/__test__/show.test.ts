@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { Ticket } from '../../models/Ticket';
+import { Ticket } from '../../models/ticket';
 import mongoose from 'mongoose';
 
 it('returns a 404 is a ticket is not found', async () => {
