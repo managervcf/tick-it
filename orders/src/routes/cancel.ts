@@ -5,6 +5,8 @@ import {
   NotAuthorizedError,
 } from '@tick-it/common';
 import { Order, OrderStatus } from '../models/order';
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const cancelOrderRouter = Router();
 
@@ -14,7 +16,7 @@ cancelOrderRouter.patch(
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
 
-    const foundOrder = await Order.findById(orderId);
+    const foundOrder = await Order.findById(orderId).populate('ticket');
 
     if (!foundOrder) {
       throw new NotFoundError();
@@ -28,6 +30,12 @@ cancelOrderRouter.patch(
     await foundOrder.save();
 
     // Publish an event saying this order was cancelled
+    new OrderCancelledPublisher(natsWrapper.client).publish({
+      id: foundOrder.id,
+      ticket: {
+        id: foundOrder.ticket.id,
+      },
+    });
 
     res.status(202).send(foundOrder);
   }
