@@ -5,7 +5,7 @@
  * Included bootstrap will apply to all pages.
  */
 import 'bootstrap/dist/css/bootstrap.css';
-import buildClient from '../api/buildClient';
+import buildClient from '../api/build-client';
 import Header from '../components/header';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
