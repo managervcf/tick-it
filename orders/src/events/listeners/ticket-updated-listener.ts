@@ -23,7 +23,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
    * @param message NATS message
    */
   async onMessage(data: TicketUpdatedEvent['data'], message: Message) {
-    const foundTicket = await Ticket.findById(data.id);
+    const foundTicket = await Ticket.findByIdAndUpdateIfVersionMatches(data);
 
     if (!foundTicket) {
       throw new NotFoundError();

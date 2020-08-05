@@ -5,6 +5,7 @@ import {
   NotFoundError,
   validateRequest,
   requireAuth,
+  BadRequestError,
 } from '@tick-it/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -31,6 +32,9 @@ updateTicketRouter.put(
     if (!ticket) {
       throw new NotFoundError();
     }
+    if (ticket.orderId) {
+      throw new BadRequestError('Cannot edit an already reserved ticket');
+    }
 
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
@@ -51,6 +55,7 @@ updateTicketRouter.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
 
     res.send(ticket);

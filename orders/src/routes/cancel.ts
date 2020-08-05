@@ -32,6 +32,7 @@ cancelOrderRouter.patch(
     // Publish an event saying this order was cancelled
     new OrderCancelledPublisher(natsWrapper.client).publish({
       id: foundOrder.id,
+      version: foundOrder.version,
       ticket: {
         id: foundOrder.ticket.id,
       },

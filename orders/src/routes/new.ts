@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import { body } from 'express-validator';
 import { Types } from 'mongoose';
 import {
   requireAuth,
@@ -7,11 +8,10 @@ import {
   OrderStatus,
   BadRequestError,
 } from '@tick-it/common';
-import { body } from 'express-validator';
-import { Ticket } from '../models/ticket';
-import { Order } from '../models/order';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
+import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
 
 const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
@@ -62,6 +62,7 @@ createOrderRouter.post(
     // Publish an event saying that order has been created
     new OrderCreatedPublisher(natsWrapper.client).publish({
       id: newOrder.id,
+      version: newOrder.version,
       status: newOrder.status,
       expiresAt: newOrder.expiresAt.toISOString(),
       ticket: {

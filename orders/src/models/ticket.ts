@@ -1,5 +1,6 @@
 import { Schema, Document, Model, model } from 'mongoose';
 import { Order, OrderStatus } from './order';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface TicketAttributes {
   id: string;
@@ -10,11 +11,16 @@ interface TicketAttributes {
 export interface TicketDoc extends Document {
   title: string;
   price: number;
+  version: number;
   isReserved(): Promise<boolean>;
 }
 
 interface TicketModel extends Model<TicketDoc> {
   build(attributes: TicketAttributes): TicketDoc;
+  findByIdAndUpdateIfVersionMatches(event: {
+    id: string;
+    version: number;
+  }): Promise<TicketDoc | null>;
 }
 
 const ticketSchema = new Schema(
@@ -39,10 +45,26 @@ const ticketSchema = new Schema(
   }
 );
 
+// Change version key
+ticketSchema.set('versionKey', 'version');
+
+// Apply plugin
+ticketSchema.plugin(updateIfCurrentPlugin);
+
 ticketSchema.statics.build = (attributes: TicketAttributes) =>
   new Ticket({
     _id: attributes.id,
     ...attributes,
+  });
+
+// Custom model static method updating record if the version matches
+ticketSchema.statics.findByIdAndUpdateIfVersionMatches = async (event: {
+  id: string;
+  version: number;
+}) =>
+  await Ticket.findOne({
+    _id: event.id,
+    version: event.version - 1,
   });
 
 /**

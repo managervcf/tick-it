@@ -1,6 +1,7 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import { OrderStatus } from '@tick-it/common';
 import { TicketDoc } from './ticket';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export { OrderStatus };
 
@@ -16,6 +17,7 @@ interface OrderDoc extends Document {
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
+  version: number;
 }
 
 interface OrderModel extends Model<OrderDoc> {
@@ -51,6 +53,11 @@ const orderSchema = new Schema(
     },
   }
 );
+// Change version key
+orderSchema.set('versionKey', 'version');
+
+// Apply plugin
+orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attributes: OrderAttributes) =>
   new Order(attributes);

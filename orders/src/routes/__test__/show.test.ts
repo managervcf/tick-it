@@ -1,10 +1,15 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 
 it('fetches and order', async () => {
   // Create a ticket
-  const ticket = Ticket.build({ title: 'titlenewticket', price: 39 });
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'titlenewticket',
+    price: 39,
+  });
   await ticket.save();
 
   // Create a user authentication cookie
@@ -29,7 +34,11 @@ it('fetches and order', async () => {
 
 it('returns an error when one user is trying to fetch another users orders', async () => {
   // Create a ticket
-  const ticket = Ticket.build({ title: 'titlenewticket', price: 39 });
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'titlenewticket',
+    price: 39,
+  });
   await ticket.save();
 
   // Create a user authentication cookie

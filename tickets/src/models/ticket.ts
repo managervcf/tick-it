@@ -1,4 +1,5 @@
 import { Schema, model, Document, Model } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export interface TicketAttributes {
   title: string;
@@ -10,6 +11,8 @@ interface TicketDoc extends Document {
   title: string;
   price: number;
   userId: string;
+  version: number;
+  orderId?: string;
 }
 
 interface TicketModel extends Model<TicketDoc> {
@@ -30,6 +33,9 @@ const ticketSchema = new Schema(
       type: String,
       required: true,
     },
+    orderId: {
+      type: String,
+    },
   },
   {
     toJSON: {
@@ -40,6 +46,12 @@ const ticketSchema = new Schema(
     },
   }
 );
+
+// Rename version key from __v to verison
+ticketSchema.set('versionKey', 'version');
+
+// Apply plugin to manage version control
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 ticketSchema.statics.build = (attributes: TicketAttributes) =>
   new Ticket(attributes);
