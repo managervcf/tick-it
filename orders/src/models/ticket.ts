@@ -2,6 +2,7 @@ import { Schema, Document, Model, model } from 'mongoose';
 import { Order, OrderStatus } from './order';
 
 interface TicketAttributes {
+  id: string;
   title: string;
   price: number;
 }
@@ -39,7 +40,10 @@ const ticketSchema = new Schema(
 );
 
 ticketSchema.statics.build = (attributes: TicketAttributes) =>
-  new Ticket(attributes);
+  new Ticket({
+    _id: attributes.id,
+    ...attributes,
+  });
 
 /**
  * Make sure that the ticket is not already reserved
