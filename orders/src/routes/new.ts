@@ -64,6 +64,7 @@ createOrderRouter.post(
       id: newOrder.id,
       version: newOrder.version,
       status: newOrder.status,
+      userId: newOrder.userId,
       expiresAt: newOrder.expiresAt.toISOString(),
       ticket: {
         id: foundTicket.id,
