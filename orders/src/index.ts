@@ -4,6 +4,7 @@ import { DatabaseConnectionError } from '@tick-it/common';
 import { natsWrapper } from './nats-wrapper';
 import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
 import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
+import { ExpirationCompleteListener } from './events/listeners/expiration-complete-listener';
 
 /**
  * Function that starts the server.
@@ -68,6 +69,7 @@ const start = async () => {
      */
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
+    new ExpirationCompleteListener(natsWrapper.client).listen();
   } catch (error) {
     throw new DatabaseConnectionError();
   } finally {

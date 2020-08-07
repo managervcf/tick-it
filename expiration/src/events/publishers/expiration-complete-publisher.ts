@@ -1,7 +1,7 @@
-import { Publisher, Subjects, ExpirationCompletedEvent } from '@tick-it/common';
+import { Publisher, Subjects, ExpirationCompleteEvent } from '@tick-it/common';
 
 export class ExpirationCompletePublisher extends Publisher<
-  ExpirationCompletedEvent
+  ExpirationCompleteEvent
 > {
   readonly subject = Subjects.ExpirationComplete;
 }
