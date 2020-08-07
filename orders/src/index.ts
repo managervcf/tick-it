@@ -58,7 +58,7 @@ const start = async () => {
      * Perform a graceful shutdown
      */
     natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed');
+      console.log('(Orders) NATS connection closed');
       process.exit();
     });
     process.on('SIGINT', () => natsWrapper.client.close());
