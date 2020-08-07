@@ -1,0 +1,35 @@
+{
+  "name": "expiration",
+  "version": "0.0.1",
+  "description": "Expiration Service for TickIt",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch-all --no-cache",
+    "start": "ts-node-dev src/index.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
+  "keywords": [
+    "expiration",
+    "service"
+  ],
+  "author": "Mateusz Pyzowski",
+  "license": "ISC",
+  "dependencies": {
+    "@tick-it/common": "^1.0.18",
+    "@types/bull": "^3.14.0",
+    "bull": "^3.16.0",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "jest": "^26.0.1",
+    "ts-jest": "^26.1.0"
+  }
+}
