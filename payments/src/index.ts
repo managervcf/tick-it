@@ -2,6 +2,8 @@ import { app } from './app';
 import { connect } from 'mongoose';
 import { DatabaseConnectionError } from '@tick-it/common';
 import { natsWrapper } from './nats-wrapper';
+import { OrderCreatedListener } from './events/listeners/order-created-listener';
+import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 
 /**
  * Function that starts the server.
@@ -60,6 +62,12 @@ const start = async () => {
     });
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
+
+    /**
+     * Initialize listeners
+     */
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
   } catch (error) {
     throw new DatabaseConnectionError();
   } finally {

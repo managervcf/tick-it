@@ -4,6 +4,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@tick-it/common';
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(json());
 app.use(currentUser);
 
 // Routes
+app.use(createChargeRouter);
 
 // '404 Not Found' error handling
 app.all('*', async () => {
