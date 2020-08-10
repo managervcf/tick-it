@@ -11,6 +11,8 @@ import {
 import { Order } from '../models/orders';
 import { stripe } from '../stripe';
 import { Payment } from '../models/payment';
+import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const validateBody = [body('token').notEmpty(), body('orderId').notEmpty()];
 
@@ -58,6 +60,11 @@ createChargeRouter.post(
     await createdPayment.save();
 
     // Publish an event saying that an order has been charged
+    await new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: createdPayment.id,
+      orderId: createdPayment.orderId,
+      chargeId: createdPayment.chargeId,
+    });
 
     res.status(201).send(createdPayment);
   }
