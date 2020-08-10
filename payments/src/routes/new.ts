@@ -10,6 +10,7 @@ import {
 } from '@tick-it/common';
 import { Order } from '../models/orders';
 import { stripe } from '../stripe';
+import { Payment } from '../models/payment';
 
 const validateBody = [body('token').notEmpty(), body('orderId').notEmpty()];
 
@@ -48,7 +49,17 @@ createChargeRouter.post(
       source: token,
     });
 
-    res.status(201).send({ success: true });
+    // Save a payment to the database
+    const createdPayment = Payment.build({
+      orderId,
+      chargeId: charge.id,
+    });
+
+    await createdPayment.save();
+
+    // Publish an event saying that an order has been charged
+
+    res.status(201).send(createdPayment);
   }
 );
 
