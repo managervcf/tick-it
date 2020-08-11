@@ -1,23 +1,39 @@
-import buildClient from '../api/build-client';
+import Link from 'next/link';
 
-const LandingPage = ({ currentUser }) => (
-  <h1>{currentUser ? 'You are signed in' : 'You are not signed in'}</h1>
-);
+const LandingPage = ({ tickets }) => {
+  const ticketsData = tickets.map(({ id, title, price }) => (
+    <tr key={id}>
+      <td>{title}</td>
+      <td>{price}</td>
+      <td>
+        <Link href="/tickets/[ticketId]" as={`/tickets/${id}`}>
+          <a>Details</a>
+        </Link>
+      </td>
+    </tr>
+  ));
 
-/**
- * Function used for fetching data about current user before
- * rendering process.
- *
- * @name              getInitialProps Function executed before SSR.
- * @param   {Object}  context         Object with 'req' property.
- * @return  {Object}                  Object set as props for the component.
- */
-LandingPage.getInitialProps = async context => {
-  // Build client (preconfigured axios client)
-  const axiosClient = buildClient(context);
-  // Make a request to check if user is logged in
-  const { data } = await axiosClient.get('/api/users/currentuser');
-  return data;
+  return (
+    <div>
+      <h1>Tickets</h1>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>{ticketsData}</tbody>
+      </table>
+    </div>
+  );
+};
+
+LandingPage.getInitialProps = async (context, client, currentUser) => {
+  const { data: tickets } = await client.get('/api/tickets');
+
+  return { tickets };
 };
 
 export default LandingPage;

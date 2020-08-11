@@ -4,7 +4,7 @@ import axios from 'axios';
  * Build axios client for requests issued from
  * both browser and server.
  *  */
-export default ({ req }) => {
+export const buildClient = ({ req }) => {
   if (typeof window === 'undefined') {
     /**
      * Axios client for the server.

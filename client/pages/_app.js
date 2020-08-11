@@ -5,14 +5,16 @@
  * Included bootstrap will apply to all pages.
  */
 import 'bootstrap/dist/css/bootstrap.css';
-import buildClient from '../api/build-client';
 import Header from '../components/header';
+import { buildClient } from '../api/build-client';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
       <Header currentUser={currentUser} />
-      <Component {...pageProps} />
+      <div className="container">
+        <Component {...pageProps} currentUser={currentUser} />
+      </div>
     </div>
   );
 };
@@ -31,10 +33,14 @@ AppComponent.getInitialProps = async appContext => {
   // Make a request to check if user is logged in
   const { data } = await axiosClient.get('/api/users/currentuser');
 
-  //
+  // Invoke getInitialProps on child component
   let pageProps = {};
   if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    pageProps = await appContext.Component.getInitialProps(
+      appContext.ctx,
+      axiosClient,
+      data.currentUser
+    );
   }
 
   return {
