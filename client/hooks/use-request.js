@@ -10,16 +10,19 @@ import { useState } from 'react';
  * @param   {Function}  onSuccess  Callback function.
  * @return  {Object}               { doRequest, errors }
  */
-export default ({ url, method, body, onSuccess }) => {
+export const useRequest = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
 
-  const doRequest = async () => {
+  const doRequest = async (properties = {}) => {
     try {
       // Reset errors state
       setErrors(null);
 
       // Send a request
-      const response = await axios[method](url, body);
+      const response = await axios[method](url, {
+        ...body,
+        ...properties,
+      });
 
       // Check if callback is provided and call it if so
       if (onSuccess) {
