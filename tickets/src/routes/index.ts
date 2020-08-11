@@ -6,7 +6,9 @@ const getTicketsRouter = Router();
 getTicketsRouter.get(
   '/api/tickets',
   async (request: Request, res: Response) => {
-    const tickets = await Ticket.find({});
+    const tickets = await Ticket.find({
+      orderId: undefined,
+    });
     res.send(tickets);
   }
 );
