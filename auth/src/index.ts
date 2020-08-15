@@ -3,7 +3,7 @@ import { connect } from 'mongoose';
 import { DatabaseConnectionError } from '@tick-it/common';
 
 /**
- * Define a function that starts the server.
+ * Function that starts the server.
  */
 const start = async () => {
   console.log('(Auth) Starting up...');
