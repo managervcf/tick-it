@@ -1,22 +1,19 @@
 name: deploy-manifests
-
 on:
   push:
     branches:
       - master
     paths:
       - 'infra/**'
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - uses: digitalocean/action-doctl@v2
-      with:
-        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-    - name: Configure kubectl to use Digital Ocean context tick-it
-      run: doctl kubernetes cluster kubeconfig save tick-it
-    - name: Apply all manifests to kubernets cluster in both folders
-      run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-prod
+      - uses: actions/checkout@v2
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Configure kubectl to use Digital Ocean context tick-it
+        run: doctl kubernetes cluster kubeconfig save tick-it
+      - name: Apply all manifests to kubernets cluster in both folders
+        run: kubectl apply -f infra/k8s && kubectl apply -f infra/k8s-production
