@@ -9,6 +9,9 @@ import { OrderCancelledListener } from './events/listeners/order-cancelled-liste
  * Function that starts the server.
  */
 const start = async () => {
+  // Startup message
+  console.log('(Payments) Starting up...');
+
   /**
    * Check evironment variables
    */

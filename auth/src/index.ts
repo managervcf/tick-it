@@ -6,7 +6,9 @@ import { DatabaseConnectionError } from '@tick-it/common';
  * Function that starts the server.
  */
 const start = async () => {
+  // Startup message
   console.log('(Auth) Starting up...');
+
   /**
    * Check evironment variables
    */
