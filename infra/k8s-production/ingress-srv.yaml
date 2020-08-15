@@ -1,3 +1,4 @@
+# Ingress config file for production environment
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
