@@ -31,3 +31,10 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push image to docker hub
       run: docker push managervcf/auth
+    - uses: digital/ocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+    - name: Configure kubectl to use Digital Ocean context tick-it
+      run: doctl kubernetes cluster kubeconfig save tick-it
+    - name: Restart deployment
+      run: kubectl rollout restart deployment auth-depl
