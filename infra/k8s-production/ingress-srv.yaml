@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: tickit.dev
+    - host: 163.47.9.223
       http:
         paths:
           - path: /api/users/?(.*)
