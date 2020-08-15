@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: 163.47.9.223
+    - host: www.application-production.xyz
       http:
         paths:
           - path: /api/users/?(.*)
