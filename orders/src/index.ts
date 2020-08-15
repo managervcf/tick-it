@@ -11,7 +11,9 @@ import { PaymentCreatedListener } from './events/listeners/payment-created-liste
  * Function that starts the server.
  */
 const start = async () => {
+  // Startup message
   console.log('(Orders) Starting up...');
+
   /**
    * Check evironment variables
    */

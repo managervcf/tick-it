@@ -6,6 +6,9 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
  * Function that starts the server.
  */
 const start = async () => {
+  // Startup message
+  console.log('(Expiration) Starting up...');
+
   /**
    * Check evironment variables
    */
