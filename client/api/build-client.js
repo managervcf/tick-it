@@ -10,7 +10,7 @@ export const buildClient = ({ req }) => {
      * Axios client for the server.
      */
     return axios.create({
-      baseURL: 'http://ingress-nginx-controller.kube-system.svc.cluster.local',
+      baseURL: 'http://www.application-production.xyz',
       headers: req.headers,
     });
   } else {
