@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: www.application-production.xyz
+    - host: application-production.xyz
       http:
         paths:
           - path: /api/users/?(.*)
@@ -37,7 +37,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: 'true'
-    service.beta.kubernetes.io/do-loadbalancer-hostname: 'www.application-production.xyz'
+    service.beta.kubernetes.io/do-loadbalancer-hostname: 'application-production.xyz'
   labels:
     helm.sh/chart: ingress-nginx-2.0.3
     app.kubernetes.io/name: ingress-nginx
