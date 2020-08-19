@@ -1,0 +1,8 @@
+#body-wrapper {
+  min-height: 100vh;
+  background-image: radial-gradient(
+    circle 993px at 0.5% 50.5%,
+    rgba(137, 171, 245, 0.37) 0%,
+    rgba(245, 247, 252, 1) 100.2%
+  );
+}
