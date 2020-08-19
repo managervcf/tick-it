@@ -2,19 +2,19 @@
 
 ## Overview
 
-Ticket selling app built with microservices style approach.
+Ticket selling app built with microservices style approach, created for learning purposes.
 
 ### Functionality
 
-The purpose of the app is to buy/sell tickets to/from another users.
+The goal of the app is to allow users to buy and sell concert tickets. The `payments` service managing user payments uses Stripe API.
 
 ### Structure
 
-The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript/JavaScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used
+The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript/JavaScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used.
 
 Services also include a shared library as a dependency, called `@tick-it/common`, where all crucial type definitions, classes and common business logic live. This shared library is also included in the repository as a submodule.
 
-List of services:
+List of microservices:
 
 - `client` - Service responsible for front-end.
 - `auth` - Service responsible for authentication.
@@ -37,8 +37,4 @@ Before running the app environment variables inside the Kubernetes cluster must 
 # kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_jwt_key>
 ```
 
-Start the app with
-
-```
-skaffold dev
-```
+Start the app with `skaffold dev`
