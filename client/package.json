@@ -4,7 +4,10 @@
   "description": "NextJS server side rendered front-end app for the tick-it project",
   "main": "index.js",
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "start:prod": "npm run build && npm run start"
   },
   "keywords": [
     "clinet",
