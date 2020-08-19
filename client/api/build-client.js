@@ -9,8 +9,15 @@ export const buildClient = ({ req }) => {
     /**
      * Axios client for the server.
      */
+
+    // Build base URL depending on environment
+    const baseURL =
+      process.env.NODE_ENV === 'production'
+        ? process.env.BASE_URL_PROD
+        : process.env.BASE_URL_DEV;
+
     return axios.create({
-      baseURL: process.env.BASE_URL_PRODUCTION,
+      baseURL,
       headers: req.headers,
     });
   } else {
