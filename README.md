@@ -2,7 +2,7 @@
 
 ## Overview
 
-Ticket selling app built with microservices style approach, created for learning purposes.
+Ticket selling app built with microservices style approach, created for learning purposes. This project focuses on the back-end production ready implementation of the app, simple front-end is just for demonstration purposes.
 
 ### Functionality
 
@@ -34,7 +34,7 @@ Before running the app environment variables inside the Kubernetes cluster must 
 ```bash
 # kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=<your_stripe_key>
 
-# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_jwt_key>
+# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_random_string_of characters_as_jwt_key>
 ```
 
-Start the app with `skaffold dev`
+Start the app with `skaffold dev`.
