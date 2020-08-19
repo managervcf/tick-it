@@ -34,13 +34,15 @@ const OrderDetails = ({ order, currentUser }) => {
 
   return (
     <div>
-      You have {timeLeft} seconds left to pay
-      <StripeCheckout
-        token={onToken}
-        stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-        amount={order.ticket.price * 100}
-        email={currentUser.email}
-      />
+      You have {timeLeft}s left to pay
+      <div>
+        <StripeCheckout
+          token={onToken}
+          stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
+          amount={order.ticket.price * 100}
+          email={currentUser.email}
+        />
+      </div>
       {errors}
     </div>
   );

@@ -5,12 +5,14 @@
  * Included bootstrap will apply to all pages.
  */
 import 'bootstrap/dist/css/bootstrap.css';
+// Include custom CSS
+import '../styles/main.css';
 import Header from '../components/header';
 import { buildClient } from '../api/build-client';
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
-    <div>
+    <div id="body-wrapper">
       <Header currentUser={currentUser} />
       <div className="container">
         <Component {...pageProps} currentUser={currentUser} />

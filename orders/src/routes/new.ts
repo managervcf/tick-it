@@ -13,7 +13,7 @@ import { natsWrapper } from '../nats-wrapper';
 import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
 
-const EXPIRATION_WINDOW_SECONDS = 0.5 * 60;
+const EXPIRATION_WINDOW_SECONDS = 10 * 60;
 
 const createOrderRouter = Router();
 
