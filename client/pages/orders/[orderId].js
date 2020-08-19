@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
+import moment from 'moment';
 import { useRequest } from '../../hooks/use-request';
 import Router from 'next/router';
 
@@ -16,8 +17,8 @@ const OrderDetails = ({ order, currentUser }) => {
 
   useEffect(() => {
     const findTimeLeft = () => {
-      const msLeft = new Date(order.expiresAt) - new Date();
-      setTimeLeft(Math.round(msLeft / 1000));
+      const timeLeftUntilExpiry = moment(order.expiresAt).fromNow();
+      setTimeLeft(timeLeftUntilExpiry);
     };
 
     findTimeLeft();
@@ -34,13 +35,15 @@ const OrderDetails = ({ order, currentUser }) => {
 
   return (
     <div>
-      You have {timeLeft} seconds left to pay
-      <StripeCheckout
-        token={onToken}
-        stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-        amount={order.ticket.price * 100}
-        email={currentUser.email}
-      />
+      <div>You have {timeLeft} left to pay</div>
+      <div>
+        <StripeCheckout
+          token={onToken}
+          stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
+          amount={order.ticket.price * 100}
+          email={currentUser.email}
+        />
+      </div>
       {errors}
     </div>
   );
