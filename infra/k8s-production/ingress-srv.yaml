@@ -8,11 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-<<<<<<< HEAD
     - host: application-production.xyz
-=======
-    - host: application-production.xyz
->>>>>>> fe876e85c1cfebcb77a28fa6f7d73bed2454ebc1
       http:
         paths:
           - path: /api/users/?(.*)
