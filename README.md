@@ -2,17 +2,17 @@
 
 ## Overview
 
-Ticket selling app built with microservices style approach, created for learning purposes. This project focuses on the back-end production ready implementation of the app, simple front-end is just for demonstration purposes.
+Ticket selling app built with microservices style approach, created for learning purposes. This project focuses on the production ready back-end implementation of the app, very simple React front-end is made for demonstration purposes.
 
 ### Functionality
 
-The goal of the app is to allow users to buy and sell concert tickets. The `payments` service managing user payments uses Stripe API.
+The goal of the app is to allow users to buy and sell concert tickets. For handling credit card payments the app uses Stripe API.
 
 ### Structure
 
-The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript/JavaScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used.
+The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used.
 
-Services also include a shared library as a dependency, called `@tick-it/common`, where all crucial type definitions, classes and common business logic live. This shared library is also included in the repository as a submodule.
+All services include a shared library as a dependency, called `@tick-it/common`, where all crucial type definitions live. This shared library is also included in the repository as a submodule.
 
 List of microservices:
 
