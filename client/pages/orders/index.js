@@ -5,7 +5,12 @@ const OrderIndex = ({ orders }) => {
     </li>
   ));
 
-  return <ul>{orderList}</ul>;
+  return (
+    <ul>
+      <h2>My orders</h2>
+      {orderList}
+    </ul>
+  );
 };
 
 OrderIndex.getInitialProps = async (context, client) => {
