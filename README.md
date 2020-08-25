@@ -10,7 +10,7 @@ The goal of the app is to allow users to buy and sell concert tickets. For handl
 
 ### Structure
 
-The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript/JavaScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used.
+The app consists of 6 different services designed to comminicate in an asynchronous fashion. Services are written in TypeScript, running on NodeJS and built with NextJS (front-end), Express and MongoDB (back-end) and NATS Streaming Server to communicate via events. Each service lives in its own Docker container, managed by Kubernetes. For routing the `ingress-nginx` controller is used.
 
 All services include a shared library as a dependency, called `@tick-it/common`, where all crucial type definitions live. This shared library is also included in this repository as a submodule.
 
