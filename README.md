@@ -29,7 +29,7 @@ To manage all the Docker containers inside the Kubernetes cluster and simplify d
 
 To run the app in development environment, make sure Docker, Kubernetes and Skaffold are installed on your local machine.
 
-Before running the app environment variables inside the Kubernetes cluster must be set. Execute commands below to set these two environment variables:
+Before running the app environment variables inside the Kubernetes cluster must be set. Execute commands below to set these environment variables:
 
 ```bash
 # kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=<your_stripe_key>
