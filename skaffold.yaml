@@ -20,7 +20,7 @@ build:
     - image: managervcf/client
       context: client
       docker:
-        dockerfile: Dockerfile-dev
+        dockerfile: dev.Dockerfile
       sync:
         manual:
           - src: '**/*.js'
