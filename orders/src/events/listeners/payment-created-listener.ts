@@ -14,7 +14,7 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: PaymentCreatedEvent['data'], message: Message) {
-    const foundOrder = await Order.findById(data.orderId);
+    const foundOrder = await Order.findById(data.order.id);
 
     if (!foundOrder) {
       throw new NotFoundError();

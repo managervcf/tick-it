@@ -1,6 +1,6 @@
 import { DatabaseConnectionError } from '@tick-it/common';
 import { natsWrapper } from './nats-wrapper';
-import { PaymentCreatedListener } from './events/listeners/payment-complete-listener';
+import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
 /**
  * Function that starts the server.

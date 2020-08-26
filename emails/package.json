@@ -22,7 +22,7 @@
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.2.4",
-    "@tick-it/common": "^1.0.19",
+    "@tick-it/common": "^1.0.24",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
   },

@@ -1,5 +1,10 @@
 import { Message } from 'node-nats-streaming';
-import { Listener, PaymentCreatedEvent, Subjects } from '@tick-it/common';
+import {
+  Listener,
+  PaymentCreatedEvent,
+  Subjects,
+  BadRequestError,
+} from '@tick-it/common';
 import { queueGroupName } from './queue-group-name';
 import { Mail } from '../../api/sendgrid';
 
@@ -7,12 +12,13 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
   readonly subject = Subjects.PaymentCreated;
   queueGroupName = queueGroupName;
 
-  onMessage(data: PaymentCreatedEvent['data'], message: Message) {
-    // Save payment to the database
-
-    // Send email to the user
-    Mail.send(data, 'managervcf@gmail.com');
-
+  async onMessage(data: PaymentCreatedEvent['data'], message: Message) {
+    try {
+      // Send email to the user
+      await Mail.send(data);
+    } catch (err) {
+      throw new BadRequestError('Could not sent email');
+    }
     // Acknowledge the message
     message.ack();
   }
