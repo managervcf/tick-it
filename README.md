@@ -2,7 +2,7 @@
 
 ## Overview
 
-Ticket selling app built based on microservices architecture, created for learning purposes. This project focuses on the production ready back-end, very simple React front-end is made just for demonstration and testing purposes.
+Ticket selling app built based on microservices architecture. This project focuses on the production ready back-end, very simple React front-end is made just for demonstration and testing purposes.
 
 ### Functionality
 
