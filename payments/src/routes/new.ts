@@ -62,8 +62,12 @@ createChargeRouter.post(
     // Publish an event saying that an order has been charged
     await new PaymentCreatedPublisher(natsWrapper.client).publish({
       id: createdPayment.id,
-      orderId: createdPayment.orderId,
       chargeId: createdPayment.chargeId,
+      user: req.currentUser!,
+      order: {
+        id: foundOrder.id,
+        price: foundOrder.price,
+      },
     });
 
     res.status(201).send(createdPayment);

@@ -57,3 +57,11 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
+    - image: managervcf/emails
+      context: emails
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .

@@ -21,7 +21,7 @@
   "author": "Mateusz Pyzowski",
   "license": "ISC",
   "dependencies": {
-    "@tick-it/common": "^1.0.19",
+    "@tick-it/common": "^1.0.24",
     "@types/bull": "^3.14.0",
     "bull": "^3.16.0",
     "ts-node-dev": "^1.0.0-pre.44",

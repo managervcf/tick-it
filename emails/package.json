@@ -1,11 +1,10 @@
 {
-  "name": "orders",
+  "name": "emails",
   "version": "0.0.1",
-  "description": "Orders Service for TickIt",
+  "description": "Emails Service for TickIt",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch-all --no-cache",
-    "test:ci": "jest",
     "start": "ts-node-dev src/index.ts"
   },
   "jest": {
@@ -16,33 +15,20 @@
     ]
   },
   "keywords": [
-    "orders",
+    "emails",
     "service"
   ],
   "author": "Mateusz Pyzowski",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.4",
     "@tick-it/common": "^1.0.24",
-    "@types/cookie-session": "2.0.39",
-    "@types/express": "^4.17.6",
-    "@types/jsonwebtoken": "^8.5.0",
-    "@types/mongoose": "^5.7.22",
-    "cookie-session": "^1.4.0",
-    "express": "^4.17.1",
-    "express-async-errors": "^3.1.1",
-    "express-validator": "^6.5.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.17",
-    "mongoose-update-if-current": "^1.4.0",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.9.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
-    "@types/supertest": "^2.0.9",
     "jest": "^26.0.1",
-    "mongodb-memory-server": "^6.6.1",
-    "supertest": "^4.0.2",
     "ts-jest": "^26.1.0"
   }
 }
