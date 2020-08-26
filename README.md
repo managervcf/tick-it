@@ -32,9 +32,11 @@ To run the app in development environment, make sure Docker, Kubernetes and Skaf
 Before running the app environment variables inside the Kubernetes cluster must be set. Execute commands below to set these two environment variables:
 
 ```bash
-# kubectl create secret generic stripe-secret --from-literal STRIPE_KEY=<your_stripe_key>
+# kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=<your_stripe_key>
 
-# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_random_string_of characters_as_jwt_key>
+# kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<your_jwt_key>
+
+# kubectl create secret generic sendgrid-api-key --from-literal=SENDGRID_API_KEY=<your_sendgrid_key>
 ```
 
 Start the app with `skaffold dev`.
