@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emails-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emails
+  template:
+    metadata:
+      labels:
+        app: emails
+    spec:
+      containers:
+        - name: emails
+          image: managervcf/emails
+          env:
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: 'tick-it'
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: sendgrid-api-key
+                  key: SENDGRID_API_KEY
