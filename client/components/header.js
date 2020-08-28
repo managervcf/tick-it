@@ -23,6 +23,11 @@ const Header = ({ currentUser }) => {
         <a className="navbar-brand">TickIt</a>
       </Link>
       <div className="d-flex justify-content-end">
+        {currentUser && (
+          <span className="nav d-flex align-items-center">
+            Logged in as {currentUser.email}
+          </span>
+        )}
         <ul className="nav d-flex align-items-center">{links}</ul>
       </div>
     </nav>
