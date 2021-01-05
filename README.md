@@ -40,4 +40,10 @@ Before running the app environment variables inside the Kubernetes cluster must 
 # kubectl create secret generic sendgrid-api-key --from-literal=SENDGRID_API_KEY=<your_sendgrid_key>
 ```
 
+Be sure to expose the ingress-nginx-controller with:
+
+```bash
+# kubectl expose deployment ingress-nginx-contoller --target-port=80 --type=NodePort -n kube-system
+```
+
 Start the app with `skaffold dev`.
