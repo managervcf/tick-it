@@ -77,6 +77,7 @@ ticketSchema.statics.findByIdAndUpdateIfVersionMatches = async (event: {
 ticketSchema.methods.isReserved = async function () {
   // 'this' === the ticket document thatwe just called 'isReserved' on
   const existingOrder = await Order.findOne({
+    // @ts-ignore
     ticket: this,
     status: {
       // Find ordet where the status is anything but cancelled
